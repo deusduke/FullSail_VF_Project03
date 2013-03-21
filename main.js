@@ -13,9 +13,9 @@ var projectItemHtml = " \
 	<p>Start Date: {1}</p> \n\
 	<p>Type: {2}</p> \n\
 	<p>priority: {3}</p> \n\
-	<a href='#' data-id='{4}'>Edit Project</a> \n\
+	<a href='#' onclick=editProject({4})>Edit Project</a> \n\
 	<br/> \n\
-	<a href='#' data-id='{4}'>Delete Project</a> \n\
+	<a href='#' onclick='deleteProject({4})'>Delete Project</a> \n\
 </div>\n";
 
 // utility function to create formatted string similar to .Net
@@ -197,6 +197,18 @@ function getValueFromRadioButtons(arrRadioButtons) {
 
 	// nothing was checked
 	return null;
+}
+
+// edit a project
+function editProject(id)
+{
+
+}
+
+// delete a project
+function deleteProject(id)
+{
+
 }
 
 // add new project
