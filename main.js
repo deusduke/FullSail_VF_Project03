@@ -53,7 +53,7 @@ function hideMessage() {
 // show the message
 function showMessage(msg) {
 	// show message so that user doesn't think that the project
-	document.getElementById('message').className = 'message';
+	document.getElementById('message').className = 'success_msg';
 	document.getElementById('message').innerHTML = msg;
 }
 
@@ -179,11 +179,11 @@ function retrieveProject(id) {
 }
 
 // hide form and show the project list
-function showAllProjects(){
+function showAllProjects(force){
 	hideMessage();
 
 	// if we are already viewing all projects, return
-	if (document.getElementById('project_list').className != 'hide') return;
+	if (!force && document.getElementById('project_list').className != 'hide') return;
 
 	projects = retrieveProjects();
 
@@ -253,13 +253,34 @@ function editProject(id)
 // delete a project
 function deleteProject(id)
 {
+	var answer = confirm("Are you sure you want to delete this project?");
 
+	if (answer){
+		localStorage.removeItem(id);
+
+		// refresh the list
+		showAllProjects(true);
+	}
 }
 
 // add new project
 function addNew() {
+	editMode = false;
+	currentProject = null;
+
 	document.getElementById("mainForm").className = "";
 	document.getElementById("showAll").className = '';
 	document.getElementById("project_list").className = 'hide';
 	document.getElementById("addNew").className = 'hide';
+
+	// restore default data
+	document.getElementById('projectName').value = "";
+	document.getElementById('startDate').value = Date();
+	document.getElementById('priority').value = 3;
+	document.getElementById('internal').checked = false;
+	document.getElementById('external').checked = false;
+	document.getElementById('personal').checked = false;
+
+	// restore the button
+	document.getElementById('confirm').value="Create Project";
 }
