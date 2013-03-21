@@ -13,8 +13,9 @@ var projectItemHtml = " \
 	<p>{1}</p> \n\
 	<p>{2}</p> \n\
 	<p>{3}</p> \n\
-	<a href='{4}'>{3}</a> \n\
-	<a href='{5}'>{3}</a> \n\
+	<a href='#' data-id='{4}'>Edit Project</a> \n\
+	<br/> \n\
+	<a href='#' data-id='{4}'>Delete Project</a> \n\
 </div>\n";
 
 // utility function to create formatted string similar to .Net
@@ -42,6 +43,10 @@ function isBlank(str) {
  */
 function validateFields()
 {
+	// hide message so that user doesn't think that the project
+	// was saved when it wasn't
+	document.getElementById('message').className = 'hide';
+
 	var itxName = document.getElementById('projectName');
 	var idStartDate = document.getElementById('startDate');
 	var idType = document.getElementById('type');
@@ -110,11 +115,17 @@ function createProject()
 
 // send the project to local storage
 function storeProject(project) {
+	// give the project an id
+	if (project.id === null)
+	{
+		project.id = (new Date()).getTime().toString();
+	}
+
 	// convert to JSON and store in the database
 	data = JSON.stringify(project);
 
 	// use timestamp to make unique
-	localStorage.setItem((new Date()).getTime().toString(), data);
+	localStorage.setItem(project.id, data);
 }
 
 // retrieve all of our projects from local storage
@@ -153,12 +164,14 @@ function showAllProjects(){
 										project.name,
 										project.startDate,
 										project.type,
-										project.priority);
+										project.priority,
+										i);
 		projectListHtml += ('\n' + projectAsHtml);
 
 	}
 
 	console.log(projectListHtml);
+	console.log(i);
 
 
 	// finally we need to insert into the page
