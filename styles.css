@@ -45,3 +45,9 @@ header>h1 {
 .hd_type {
 	margin-bottom: 5px;
 }
+
+.success_msg {
+	color: darkturquoise;
+	margin: 0 auto;
+	text-align: center;
+}

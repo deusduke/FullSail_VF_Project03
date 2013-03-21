@@ -103,6 +103,9 @@ function createProject()
 
 	// show all data
 	// showAllProjects();
+
+	// show confirmation message
+	window.location = "addItem.html?success=true";
 }
 
 // send the project to local storage
