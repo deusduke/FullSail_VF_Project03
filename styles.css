@@ -1,0 +1,41 @@
+body {
+	color: #333;
+	background-color: #ccc;
+	margin: 0;
+}
+
+.hide
+{
+	display: none;
+}
+
+header {
+	background-color: gray;
+	padding: 10px;
+}
+
+header>h1 {
+	margin: 0;
+	text-align: center;
+}
+
+.content, #mainForm {
+	padding: 20px;
+}
+
+#delAll {
+	margin-left: 38px;
+}
+
+#showAll, #addNew {
+	margin-left: 20px;
+}
+
+.project_list_item {
+	background-color: #ddd;
+}
+
+.project_list_item>p {
+	margin-top: -11px;
+	padding: 0;
+}
