@@ -4,12 +4,6 @@
 *	Term:  1303
 **/
 
-/**
- * Validations fields, if and error if found and alert
- * is displdyed
- * @return {bool} true if valid, otherwise false
- */
-
 // this string is used to display a project as html
 
 /*jshint multistr: true */
@@ -19,6 +13,8 @@ var projectItemHtml = " \
 	<p>{1}</p> \n\
 	<p>{2}</p> \n\
 	<p>{3}</p> \n\
+	<a href='{4}'>{3}</a> \n\
+	<a href='{5}'>{3}</a> \n\
 </div>\n";
 
 // utility function to create formatted string similar to .Net
@@ -39,10 +35,16 @@ function isBlank(str) {
     return (!str || /^\s*$/.test(str));
 }
 
+/**
+ * Validations fields, if and error if found and alert
+ * is displdyed
+ * @return {bool} true if valid, otherwise false
+ */
 function validateFields()
 {
 	var itxName = document.getElementById('projectName');
 	var idStartDate = document.getElementById('startDate');
+	var idType = document.getElementById('type');
 
 	if (isBlank(itxName.value))
 	{
@@ -53,6 +55,21 @@ function validateFields()
 	if (isBlank(idStartDate.value))
 	{
 		alert('You must enter a start date');
+		return false;
+	}
+
+	if (isBlank(idStartDate.value))
+	{
+		alert('You must enter a start date');
+		return false;
+	}
+
+	var rbuttons = document.getElementById('mainForm').type;
+	var strType = getValueFromRadioButtons(rbuttons);
+
+	if (isBlank(strType))
+	{
+		alert('You must select a project type');
 		return false;
 	}
 
