@@ -29,21 +29,35 @@
 			<fieldset>
 				<legend>Project Details</legend>
 				<label for="projectName">Project Name</label>
+				<br>
 				<input id="projectName" name="projectName" type="text" />
+				<br>
 				<br>
 
 				<label for="startDate">Start Date</label>
+				<br>
 				<input id="startDate" name="startDate" type="date" />
 				<br>
+				<br>
 
-				<h4>Type</h4>
+				<h4 class="hd_type">Type</h4>
 				<input id="internal" name="type" type="radio" value="internal" />
+				<label for="internal">Internal</label>
+				<br>
+
 				<input id="external" name="type" type="radio" value="external" />
+				<label for="external">External</label>
+				<br>
+
 				<input id="personal" name="type" type="radio" value="personal" />
+				<label for="personal">Personal</label>
+				<br>
 				<br>
 
 				<label for="priority">Priority</label>
+				<br/>
 				<input id="priority" name="priority" type="range" min="1" max="5"/>
+				<br>
 				<br>
 
 				<input type="button" value="Save Project" onclick="createProject()">

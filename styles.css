@@ -33,9 +33,15 @@ header>h1 {
 
 .project_list_item {
 	background-color: #ddd;
+	padding: 10px;
+	margin-top: 5px;
 }
 
 .project_list_item>p {
 	margin-top: -11px;
 	padding: 0;
+}
+
+.hd_type {
+	margin-bottom: 5px;
 }
