@@ -11,14 +11,15 @@
  */
 
 // this string is used to display a project as html
+
+/*jshint multistr: true */
 var projectItemHtml = " \
 <div class='project_list_item'> \n\
 	<h3>{0}</h3> \n\
 	<p>{1}</p> \n\
 	<p>{2}</p> \n\
 	<p>{3}</p> \n\
-</div> \
-";
+</div>\n";
 
 // utility function to create formatted string similar to .Net
 String.prototype.format = function() {
@@ -32,7 +33,7 @@ String.prototype.format = function() {
 	}
 
 	return str;
-}
+};
 
 function isBlank(str) {
     return (!str || /^\s*$/.test(str));
@@ -98,7 +99,7 @@ function storeProject(project) {
 
 // retrieve all of our projects from local storage
 function retrieveProjects() {
-	var projects = new Array();
+	var projects = [];
 
 	// get all the data back out and convert back to projects
 	for (var i = 0; i < localStorage.length; i++){
@@ -124,14 +125,14 @@ function showAllProjects(){
 	document.getElementById("addNew").className = '';
 
 	// add the project items to the list
-	var projectListHtml = ""
+	var projectListHtml = "";
 	for(var i in projects) {
 		var project = projects[i];
 
 		var projectAsHtml = projectItemHtml.format(
-										project.name, 
-										project.startDate, 
-										project.type, 
+										project.name,
+										project.startDate,
+										project.type,
 										project.priority);
 		projectListHtml += ('\n' + projectAsHtml);
 
@@ -146,7 +147,7 @@ function showAllProjects(){
 
 // clear all stored data
 function clearAllProjects(){
-	localStorage.clear();	
+	localStorage.clear();
 
 	alert("All projects have been removed");
 
