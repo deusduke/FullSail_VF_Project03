@@ -6,6 +6,9 @@
 
 // this string is used to display a project as html
 
+var editMode = false;
+var currentProject = {};
+
 /*jshint multistr: true */
 var projectItemHtml = " \
 <div class='project_list_item'> \n\
@@ -150,6 +153,14 @@ function retrieveProjects() {
 	return projects;
 }
 
+// retrieve one project from local storage
+function retrieveProject(id) {
+	var json = localStorage.getItem(id);
+	var project = eval('({0})'.format(json));
+
+	return project;
+}
+
 // hide form and show the project list
 function showAllProjects(){
 	hideMessage();
@@ -208,7 +219,18 @@ function getValueFromRadioButtons(arrRadioButtons) {
 // edit a project
 function editProject(id)
 {
+	addNew();
+	currentProject = retrieveProject(id);
 
+	document.getElementById('confirm').value="Edit Project";
+
+	// restore project data
+	document.getElementById('projectName').value=currentProject.name;
+	document.getElementById('startDate').value=currentProject.startDate;
+	document.getElementById('priority').value=currentProject.priority;
+	document.getElementById(currentProject.type.toLowerCase()).checked=true;
+
+	editMode = true;
 }
 
 // delete a project
