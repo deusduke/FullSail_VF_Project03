@@ -21,9 +21,15 @@ var projectItemHtml = " \
 // utility function to create formatted string similar to .Net
 String.prototype.format = function() {
 	str = this;
+	var oldStr = "";
 
 	for (var i in arguments) {
-		str = str.replace('{' + i.toString() + '}', arguments[i]);
+		// loop so that we can support multiple same numbers
+		do{
+			oldStr = str;
+			str = str.replace('{' + i.toString() + '}', arguments[i]);
+
+		} while (str != oldStr);
 		++i;
 	}
 
