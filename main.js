@@ -10,9 +10,9 @@
 var projectItemHtml = " \
 <div class='project_list_item'> \n\
 	<h3>{0}</h3> \n\
-	<p>{1}</p> \n\
-	<p>{2}</p> \n\
-	<p>{3}</p> \n\
+	<p>Start Date: {1}</p> \n\
+	<p>Type: {2}</p> \n\
+	<p>priority: {3}</p> \n\
 	<a href='#' data-id='{4}'>Edit Project</a> \n\
 	<br/> \n\
 	<a href='#' data-id='{4}'>Delete Project</a> \n\
@@ -20,8 +20,6 @@ var projectItemHtml = " \
 
 // utility function to create formatted string similar to .Net
 String.prototype.format = function() {
-	console.log(arguments);
-
 	str = this;
 
 	for (var i in arguments) {
@@ -36,6 +34,13 @@ function isBlank(str) {
     return (!str || /^\s*$/.test(str));
 }
 
+// hide the message
+function hideMessage() {
+	// hide message so that user doesn't think that the project
+	// was saved when it wasn't
+	document.getElementById('message').className = 'hide';
+}
+
 /**
  * Validations fields, if and error if found and alert
  * is displdyed
@@ -43,9 +48,7 @@ function isBlank(str) {
  */
 function validateFields()
 {
-	// hide message so that user doesn't think that the project
-	// was saved when it wasn't
-	document.getElementById('message').className = 'hide';
+	hideMessage();
 
 	var itxName = document.getElementById('projectName');
 	var idStartDate = document.getElementById('startDate');
@@ -101,8 +104,6 @@ function createProject()
 
 	project.priority = document.getElementById('mainForm').priority.value;
 
-	console.log(project);
-
 	// store the date
 	storeProject(project);
 
@@ -116,13 +117,15 @@ function createProject()
 // send the project to local storage
 function storeProject(project) {
 	// give the project an id
-	if (project.id === null)
+	if (project.id == null)
 	{
-		project.id = (new Date()).getTime().toString();
+		project.id = new Date().getTime();
 	}
 
 	// convert to JSON and store in the database
 	data = JSON.stringify(project);
+
+	console.log(data);
 
 	// use timestamp to make unique
 	localStorage.setItem(project.id, data);
@@ -135,7 +138,6 @@ function retrieveProjects() {
 	// get all the data back out and convert back to projects
 	for (var i = 0; i < localStorage.length; i++){
 		var json = localStorage.getItem(localStorage.key(i));
-		console.log(json);
 		projects[i] = eval('({0})'.format(json));
 	}
 
@@ -144,6 +146,8 @@ function retrieveProjects() {
 
 // hide form and show the project list
 function showAllProjects(){
+	hideMessage();
+
 	// if we are already viewing all projects, return
 	if (document.getElementById('project_list').className != 'hide') return;
 
@@ -165,14 +169,10 @@ function showAllProjects(){
 										project.startDate,
 										project.type,
 										project.priority,
-										i);
+										project.id);
 		projectListHtml += ('\n' + projectAsHtml);
 
 	}
-
-	console.log(projectListHtml);
-	console.log(i);
-
 
 	// finally we need to insert into the page
 	document.getElementById("project_list").innerHTML = projectListHtml;
