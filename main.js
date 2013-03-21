@@ -1,5 +1,5 @@
 /**
-*	Visual Frameworks Project 2
+*	Visual Frameworks Project 3
 *	By: Deus Duke
 *	Term:  1303
 **/
