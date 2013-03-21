@@ -7,7 +7,7 @@
 // this string is used to display a project as html
 
 var editMode = false;
-var currentProject = {};
+var currentProject = null;
 
 /*jshint multistr: true */
 var projectItemHtml = " \
@@ -48,6 +48,13 @@ function hideMessage() {
 	// hide message so that user doesn't think that the project
 	// was saved when it wasn't
 	document.getElementById('message').className = 'hide';
+}
+
+// show the message
+function showMessage(msg) {
+	// show message so that user doesn't think that the project
+	document.getElementById('message').className = 'message';
+	document.getElementById('message').innerHTML = msg;
 }
 
 /**
@@ -105,6 +112,10 @@ function createProject()
 	// build the project objet
 	var project = {};
 
+	// if we have a current project, the use it
+	if (editMode && currentProject != null)
+		project = currentProject;
+
 	project.name = document.getElementById('projectName').value;
 	project.startDate = document.getElementById('startDate').value;
 
@@ -120,7 +131,13 @@ function createProject()
 	// showAllProjects();
 
 	// show confirmation message
-	window.location = "addItem.html?success=true";
+	var msg = "";
+	if (editMode)
+		msg = "Your project has been edited!";
+	else
+		msg = "Your project has been created!";
+
+	showMessage(msg);
 }
 
 // send the project to local storage
